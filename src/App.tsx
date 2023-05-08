@@ -1,5 +1,23 @@
 import React from 'react';
+import { Outlet, Route, Routes } from 'react-router-dom';
+
+import { DefaultLayout } from './components/layouts';
+import { NAVBAR_MENU } from './constant/navbar';
 
 export const App: React.FC = () => {
-  return <div>가나다라마바사아자차카타파하</div>;
+  return (
+    <Routes>
+      <Route
+        element={
+          <DefaultLayout menu={NAVBAR_MENU}>
+            <Outlet />
+          </DefaultLayout>
+        }
+      >
+        <Route index element={<>홈</>} />
+        <Route path="prediction" element={<>승부예측</>} />
+        <Route path="schedule" element={<>경기일정</>} />
+      </Route>
+    </Routes>
+  );
 };

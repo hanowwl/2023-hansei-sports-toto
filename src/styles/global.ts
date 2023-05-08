@@ -36,4 +36,8 @@ export const globalStyle = css`
     background-color: #ffffff;
     margin: 0 auto;
   }
+
+  p {
+    margin: 0;
+  }
 `;
