@@ -9,6 +9,7 @@ export const TagList = styled.ul`
   display: flex;
   align-items: center;
   gap: 0.4rem;
+  overflow: auto;
 `;
 
 export const TagItem = styled.li`
@@ -28,6 +29,8 @@ export const TagButton = styled.button<{ isActive?: boolean }>`
   background-color: #ffffff;
   box-shadow: inset 0px 0px 0px 1px #d1d1d1;
   transition: box-shadow 100ms, color 100ms, background 100ms;
+  overflow: hidden;
+  white-space: nowrap;
 
   &:hover {
     color: #d1afb3;
