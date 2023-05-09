@@ -1,4 +1,4 @@
-import { faCalendar, faCheckToSlot, faHouse } from '@fortawesome/free-solid-svg-icons';
+import { faHouse } from '@fortawesome/free-solid-svg-icons';
 
 import { NavbarMenu } from 'src/components/common';
 
