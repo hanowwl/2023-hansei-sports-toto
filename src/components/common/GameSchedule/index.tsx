@@ -9,8 +9,11 @@ export interface GameScheduleTeam {
 
 interface GameScheduleCommonProps {
   referee: string;
+  startDate: string;
   startTime: string;
   teams: [GameScheduleTeam, GameScheduleTeam];
+
+  showDate?: boolean;
 }
 
 export interface GameScheduleBeforeProps extends GameScheduleCommonProps {
@@ -66,12 +69,14 @@ const GameScheduleTeam: React.FC<GameScheduleTeam> = ({ name, players }) => {
 
 const GameStatus: React.FC<GameScheduleProps> = (props) => {
   if (isGameBefore(props)) {
-    const { startTime } = props;
+    const { startTime, startDate, showDate = false } = props;
 
     return (
       <div>
         <S.GameStatusText>경기 시작 전</S.GameStatusText>
-        <S.GameInfoText>{startTime} 예정</S.GameInfoText>
+        <S.GameInfoText>
+          {showDate && startDate} {startTime} 예정
+        </S.GameInfoText>
       </div>
     );
   } else if (isGameEnd(props)) {
