@@ -1,7 +1,8 @@
 import React from 'react';
 
-import { Tag, Typo } from 'src/components/common';
+import { GameSchedule, Tag, Typo } from 'src/components/common';
 import { useListToggle } from 'src/hooks';
+import { GAME_SCHEDULES, GAME_SCHEDULE_DATES, GAME_TYPES } from 'src/constant';
 
 import * as S from './styled';
 
@@ -10,21 +11,12 @@ export const SchedulePage: React.FC = () => {
     list: games,
     active: activeGame,
     handleOnClick: handleOnClickGame,
-  } = useListToggle([
-    { id: 'basketball', label: '🏀 농구' },
-    { id: 'foot-volleyball', label: '⚽️ 족구' },
-    { id: 'dodge-ball', label: '🏐 피구' },
-  ]);
+  } = useListToggle(GAME_TYPES);
   const {
     list: dates,
     active: activeDate,
     handleOnClick: handleOnClickDate,
-  } = useListToggle([
-    { id: '05/10', label: '05/10 (수)' },
-    { id: '05/11', label: '05/11 (수)' },
-    { id: '05/12', label: '05/12 (수)' },
-    { id: '05/15', label: '05/15 (수)' },
-  ]);
+  } = useListToggle([{ id: 'all', label: '전체' }, ...GAME_SCHEDULE_DATES]);
 
   return (
     <div style={{ padding: '2.4rem 0' }}>
@@ -51,7 +43,13 @@ export const SchedulePage: React.FC = () => {
         </Tag.List>
       </S.TagListRow>
 
-      <S.ScheduleRow></S.ScheduleRow>
+      <S.ScheduleRow>
+        {GAME_SCHEDULES[activeGame.id]
+          .filter((v) => activeDate.id === 'all' || v.startDate === activeDate.id)
+          .map((props, i) => {
+            return <GameSchedule key={i} showDate={activeDate.id === 'all'} {...props} />;
+          })}
+      </S.ScheduleRow>
     </div>
   );
 };
