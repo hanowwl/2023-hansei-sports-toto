@@ -36,7 +36,7 @@ export const GAME_SCHEDULES: Record<string, GameScheduleProps[]> = {
       teams: [
         {
           name: '네보 2학년 1반',
-          players: ['김*총(03)', '박*성(08)', '육*영(13)', '이*우(15)', '홍*선(16)'],
+          players: ['김*총(03)', '박*성(08)', '육*영(13)', '이*우(15)', '홍*성(16)'],
           reservePlayers: ['강*민(01)', '박*훈(07)'],
           score: 6,
         },
