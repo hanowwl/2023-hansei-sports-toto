@@ -3,6 +3,7 @@ import { Outlet, Route, Routes } from 'react-router-dom';
 
 import { DefaultLayout } from './components/layouts';
 import { NAVBAR_MENU } from './constant/navbar';
+import { SchedulePage } from './pages/schedule';
 
 export const App: React.FC = () => {
   return (
@@ -14,9 +15,9 @@ export const App: React.FC = () => {
           </DefaultLayout>
         }
       >
-        <Route index element={<>홈</>} />
-        <Route path="prediction" element={<>승부예측</>} />
-        <Route path="schedule" element={<>경기일정</>} />
+        <Route index element={<SchedulePage />} />
+        {/* <Route path="prediction" element={<>승부예측</>} />
+        <Route path="schedule" element={<SchedulePage />} /> */}
       </Route>
     </Routes>
   );
