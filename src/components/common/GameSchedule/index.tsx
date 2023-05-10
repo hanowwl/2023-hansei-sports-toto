@@ -1,3 +1,4 @@
+/* eslint-disable react/jsx-no-useless-fragment */
 import React from 'react';
 
 import * as S from './styled';
@@ -5,6 +6,7 @@ import * as S from './styled';
 export interface GameScheduleTeam {
   name: string;
   players: string[] | string;
+  reservePlayers?: string[];
 }
 
 interface GameScheduleCommonProps {
@@ -48,21 +50,45 @@ const isGameEnd = (props: GameScheduleProps): props is GameScheduleEndProps =>
 const isGameProgress = (props: GameScheduleProps): props is GameScheduleProgressProps =>
   props.status === 'progress';
 
-const GameScheduleTeam: React.FC<GameScheduleTeam> = ({ name, players }) => {
+const GameScheduleTeam: React.FC<GameScheduleTeam> = ({ name, players, reservePlayers }) => {
   return (
     <S.GameTeamContainer>
       <S.GameTeamName>{name}</S.GameTeamName>
-      <S.GameTeamMemberTitle>출전 선수</S.GameTeamMemberTitle>
-      <S.GameTeamMemberText>
-        {typeof players === 'string'
-          ? players
-          : players.map((player, i) => (
-              <React.Fragment key={i}>
-                {player}
-                {(i + 1) % 3 === 0 ? <br /> : <>, </>}
-              </React.Fragment>
-            ))}
-      </S.GameTeamMemberText>
+      <div>
+        <S.GameTeamMemberTitle>출전 선수</S.GameTeamMemberTitle>
+        <S.GameTeamMemberText>
+          {typeof players === 'string'
+            ? players
+            : players.map((player, i, arr) => {
+                const isLastPlayer = arr.length - 1 === i;
+
+                return (
+                  <React.Fragment key={i}>
+                    {player}
+                    {(i + 1) % 3 === 0 ? <br /> : isLastPlayer ? <></> : <>, </>}
+                  </React.Fragment>
+                );
+              })}
+        </S.GameTeamMemberText>
+      </div>
+
+      {reservePlayers && (
+        <div style={{ marginTop: '1.2rem' }}>
+          <S.GameTeamMemberTitle>예비 선수</S.GameTeamMemberTitle>
+          <S.GameTeamMemberText>
+            {reservePlayers.map((player, i, arr) => {
+              const isLastPlayer = arr.length - 1 === i;
+
+              return (
+                <React.Fragment key={i}>
+                  {player}
+                  {(i + 1) % 3 === 0 ? <br /> : isLastPlayer ? <></> : <>, </>}
+                </React.Fragment>
+              );
+            })}
+          </S.GameTeamMemberText>
+        </div>
+      )}
     </S.GameTeamContainer>
   );
 };
