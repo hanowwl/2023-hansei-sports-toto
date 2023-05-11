@@ -10,7 +10,9 @@
     "build": "tsc && vite build",
     "lint": "eslint src --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
     "format": "prettier --write src",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "supabase:start": "supabase start",
+    "supabase:stop": "supabase stop"
   },
   "dependencies": {
     "@emotion/react": "^11.11.0",
@@ -39,6 +41,7 @@
     "eslint-plugin-react-hooks": "^4.6.0",
     "husky": "^8.0.3",
     "lint-staged": "^13.2.2",
+    "supabase": "^1.57.5",
     "typescript": "^5.0.2",
     "vite": "^4.3.2"
   },
