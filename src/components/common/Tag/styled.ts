@@ -31,6 +31,7 @@ export const TagButton = styled.button<{ isActive?: boolean }>`
   transition: box-shadow 100ms, color 100ms, background 100ms;
   overflow: hidden;
   white-space: nowrap;
+  cursor: pointer;
 
   &:hover {
     color: #d1afb3;
