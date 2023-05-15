@@ -4,10 +4,14 @@ import { BrowserRouter } from 'react-router-dom';
 
 import { Global } from '@emotion/react';
 import * as Sentry from '@sentry/react';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 
 import { App } from './App.tsx';
 import { globalStyle } from './styles';
 import { ENV } from './constant/env.ts';
+
+const queryClient = new QueryClient();
 
 Sentry.init({
   dsn: ENV.SENTRY_DSN_URL,
@@ -24,9 +28,13 @@ Sentry.init({
 
 ReactDOM.createRoot(document.getElementById('app') as HTMLElement).render(
   <React.StrictMode>
-    <BrowserRouter>
-      <Global styles={[globalStyle]} />
-      <App />
-    </BrowserRouter>
+    <QueryClientProvider client={queryClient}>
+      <BrowserRouter>
+        <Global styles={[globalStyle]} />
+        <App />
+      </BrowserRouter>
+
+      {ENV.MODE === 'development' && <ReactQueryDevtools initialIsOpen={false} />}
+    </QueryClientProvider>
   </React.StrictMode>
 );
