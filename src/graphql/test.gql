@@ -1,0 +1,10 @@
+query Node {
+  testCollection {
+    edges {
+      node {
+        id
+        nodeId
+      }
+    }
+  }
+}
