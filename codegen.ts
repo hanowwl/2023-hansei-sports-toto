@@ -38,6 +38,16 @@ const config: CodegenConfig = {
         withMutationFn: true,
       },
       plugins: ['typescript-react-query'],
+      config: {
+        fetcher: {
+          endpoint: `${ENV.VITE_SUPABASE_URL}/graphql/v1`,
+          fetchParams: {
+            headers: {
+              'Content-Type': 'application/json',
+            },
+          },
+        },
+      },
     },
   },
 };
