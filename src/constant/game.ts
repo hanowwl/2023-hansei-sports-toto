@@ -333,7 +333,7 @@ export const GAME_SCHEDULES: Record<string, GameScheduleProps[]> = {
       ],
     },
     {
-      status: 'before',
+      status: 'end',
       referee: '은석T',
       startDate: '05/15',
       startTime: '수업시간 중 진행',
@@ -352,6 +352,7 @@ export const GAME_SCHEDULES: Record<string, GameScheduleProps[]> = {
             '임*훈(15)',
             '아*드(18)',
           ],
+          score: 0,
         },
         {
           name: '클보 1학년 2반',
@@ -367,11 +368,12 @@ export const GAME_SCHEDULES: Record<string, GameScheduleProps[]> = {
             '추*강(17)',
             '홍*희(18)',
           ],
+          score: 1,
         },
       ],
     },
     {
-      status: 'before',
+      status: 'end',
       referee: '은석T',
       startDate: '05/15',
       startTime: '수업시간 중 진행',
@@ -389,6 +391,7 @@ export const GAME_SCHEDULES: Record<string, GameScheduleProps[]> = {
             '홍*기(17)',
             '황*윤(18)',
           ],
+          score: 0,
         },
         {
           name: '클보 1학년 1반',
@@ -404,11 +407,12 @@ export const GAME_SCHEDULES: Record<string, GameScheduleProps[]> = {
             '최*윤(17)',
             '최*호(18)',
           ],
+          score: 1,
         },
       ],
     },
     {
-      status: 'before',
+      status: 'end',
       referee: '은석T',
       startDate: '05/17',
       startTime: '방과후',
@@ -427,6 +431,7 @@ export const GAME_SCHEDULES: Record<string, GameScheduleProps[]> = {
             '이*혁(16)',
             '이*정(17)',
           ],
+          score: 0,
         },
         {
           name: '해킹 3학년 2반',
@@ -442,6 +447,7 @@ export const GAME_SCHEDULES: Record<string, GameScheduleProps[]> = {
             '진*석(18)',
             '한*원(19)',
           ],
+          score: 1,
         },
       ],
     },
