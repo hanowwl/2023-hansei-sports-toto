@@ -98,7 +98,7 @@ const FinalSchedulesWithSuspense: React.FC = () => {
 export const ScheduleFinalPage: React.FC = () => {
   return (
     <div style={{ height: '100%' }}>
-      <div style={{ height: '100%', padding: '2.4rem 0' }}>
+      <div style={{ padding: '2.4rem 0' }}>
         <div style={{ marginBottom: '1.6rem' }}>
           <Typo.H1>2023 스포츠한마당 결승 일정</Typo.H1>
           <Typo.Small>※ 경기 일정은 추후 변경될 수 있어요</Typo.Small>
