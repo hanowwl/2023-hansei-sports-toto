@@ -30,10 +30,10 @@ export interface GameScheduleEndProps extends GameScheduleCommonProps {
 export interface GameScheduleProgressProps extends GameScheduleCommonProps {
   status: 'progress';
   teams: [GameScheduleTeam & { score: number }, GameScheduleTeam & { score: number }];
-  playtime: {
-    type: 'first' | 'second';
-    time: number; // sec
-  };
+  // playtime: {
+  //   type: 'first' | 'second';
+  //   time: number; // sec
+  // };
 }
 
 export type GameScheduleProps =
@@ -119,15 +119,15 @@ const GameStatus: React.FC<GameScheduleProps> = (props) => {
       </div>
     );
   } else if (isGameProgress(props)) {
-    const { teams, playtime } = props;
-    const timeType = { first: '전반', second: '후반' };
-    const time = new Date(playtime.time * 1000).toISOString().substring(14, 19);
+    const { teams } = props;
+    // const timeType = { first: '전반', second: '후반' };
+    // const time = new Date(playtime.time * 1000).toISOString().substring(14, 19);
 
     return (
       <>
-        <S.GameInfoText style={{ color: '#818181', marginBottom: '0.4rem' }}>
+        {/* <S.GameInfoText style={{ color: '#818181', marginBottom: '0.4rem' }}>
           {timeType[playtime.type]} {time}
-        </S.GameInfoText>
+        </S.GameInfoText> */}
         <div>
           <S.GameStatusText>경기 진행 중</S.GameStatusText>
           <S.GameStatusText>
