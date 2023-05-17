@@ -20,8 +20,8 @@ export const NavbarMenuList = styled.ul`
   width: 100%;
   display: flex;
   align-items: center;
-  /* justify-content: space-between; */
-  justify-content: center;
+  justify-content: space-between;
+  /* justify-content: center; */
 `;
 
 export const NavbarMenuItem = styled.li`
