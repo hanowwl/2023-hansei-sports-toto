@@ -22,7 +22,7 @@ export const Navbar: React.FC<NavbarProps> = ({ menu }) => {
         {menu.map(({ to, icon, text }, i) => {
           return (
             <S.NavbarMenuItem key={i}>
-              <S.NavbarLink to={to}>
+              <S.NavbarLink to={to} end>
                 <FontAwesomeIcon icon={icon} size="xl" />
                 <S.NavbarText>{text}</S.NavbarText>
               </S.NavbarLink>

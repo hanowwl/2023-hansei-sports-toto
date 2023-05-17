@@ -1,0 +1,27 @@
+query getFinalGameSchedules {
+  scheduleCollection {
+    edges {
+      node {
+        id
+        status
+        referee
+        start_date
+        start_time
+        team_scheduleCollection {
+          edges {
+            node {
+              score
+              type
+              team {
+                players
+                reserve_players
+                type
+                name
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
