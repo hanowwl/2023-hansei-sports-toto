@@ -43,6 +43,7 @@ const config: CodegenConfig = {
           endpoint: `${ENV.VITE_SUPABASE_URL}/graphql/v1`,
           fetchParams: {
             headers: {
+              apikey: ENV.VITE_SUPABASE_ANON_KEY,
               'Content-Type': 'application/json',
             },
           },
