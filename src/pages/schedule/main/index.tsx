@@ -1,8 +1,14 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 
-import { GameSchedule, Tag, Typo } from 'src/components/common';
+import {
+  GameSchedule,
+  GameScheduleProps,
+  SuspenseFallback,
+  Tag,
+  Typo,
+} from 'src/components/common';
 import { useListToggle } from 'src/hooks';
-import { GAME_SCHEDULES, GAME_SCHEDULE_DATES, GAME_TYPES } from 'src/constant';
+import { GAME_SCHEDULE_DATES, GAME_TYPES } from 'src/constant';
 
 import * as S from './styled';
 
@@ -17,6 +23,24 @@ export const SchedulePage: React.FC = () => {
     active: activeDate,
     handleOnClick: handleOnClickDate,
   } = useListToggle([{ id: 'all', label: '전체' }, ...GAME_SCHEDULE_DATES]);
+
+  const [schedules, setSchedules] = useState<Record<string, GameScheduleProps[]> | null>(null);
+
+  useEffect(() => {
+    const lazyLoadGameSchedules = async () => {
+      const GAME_SCHEDULES = await import('src/constant/game').then(
+        (module) => module.GAME_SCHEDULES
+      );
+
+      setSchedules(GAME_SCHEDULES);
+    };
+
+    lazyLoadGameSchedules();
+  }, []);
+
+  useEffect(() => {
+    console.log(schedules);
+  }, [schedules]);
 
   return (
     <div style={{ padding: '2.4rem 0' }}>
@@ -43,13 +67,17 @@ export const SchedulePage: React.FC = () => {
         </Tag.List>
       </S.TagListRow>
 
-      <S.ScheduleRow>
-        {GAME_SCHEDULES[activeGame.id]
-          .filter((v) => activeDate.id === 'all' || v.startDate === activeDate.id)
-          .map((props, i) => {
-            return <GameSchedule key={i} showDate={activeDate.id === 'all'} {...props} />;
-          })}
-      </S.ScheduleRow>
+      {schedules ? (
+        <S.ScheduleRow>
+          {schedules[activeGame.id]
+            .filter((v) => activeDate.id === 'all' || v.startDate === activeDate.id)
+            .map((props, i) => {
+              return <GameSchedule key={i} showDate={activeDate.id === 'all'} {...props} />;
+            })}
+        </S.ScheduleRow>
+      ) : (
+        <SuspenseFallback messages={['예선 경기 일정을 불러오고 있어요', '잠시만 기다려주세요']} />
+      )}
     </div>
   );
 };
