@@ -13,10 +13,18 @@ import * as S from './styled';
 export const PredictionPage: React.FC = () => {
   const { profile } = useAuth();
   const { data } = useGetPredictionsQuery();
-  const { data: myPredictions, isSuccess: hasPredictions } = useGetMyPredictionsQuery({
+  const {
+    data: myPredictions,
+    isSuccess: hasPredictions,
+    refetch,
+  } = useGetMyPredictionsQuery({
     userId: profile?.id,
   });
-  const { mutate: submitPredictions } = useSubmitPredictionMutation();
+  const { mutate: submitPredictions, isLoading } = useSubmitPredictionMutation({
+    onSuccess: () => {
+      refetch();
+    },
+  });
   const predictions = useMemo(() => {
     return (
       (data?.predictionCollection?.edges.map(({ node }) => {
@@ -88,8 +96,10 @@ export const PredictionPage: React.FC = () => {
         fillWidth
         disabled={
           !selectAllPredictions ||
-          (hasPredictions && (myPredictions.user_predictionCollection?.edges.length || 0) > 0)
+          (hasPredictions && (myPredictions.user_predictionCollection?.edges.length || 0) > 0) ||
+          isLoading
         }
+        loading={isLoading}
         onClick={handleOnSubmitPredictions}
       >
         {hasPredictions && (myPredictions.user_predictionCollection?.edges.length || 0) > 0
