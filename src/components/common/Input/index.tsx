@@ -40,6 +40,7 @@ export const Input = React.forwardRef<HTMLInputElement | HTMLTextAreaElement, In
 
     useEffect(() => {
       if (value) setInputType(String(value));
+      setInputValue(String(value));
     }, [value]);
 
     return (
