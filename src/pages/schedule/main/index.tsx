@@ -43,7 +43,7 @@ export const SchedulePage: React.FC = () => {
   }, [schedules]);
 
   return (
-    <div style={{ padding: '2.4rem 0' }}>
+    <div>
       <div style={{ marginBottom: '1.6rem' }}>
         <Typo.H1>2023 스포츠한마당 예선 일정</Typo.H1>
         <Typo.Small>※ 경기 일정은 추후 변경될 수 있어요</Typo.Small>

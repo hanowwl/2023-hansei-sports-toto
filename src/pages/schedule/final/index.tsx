@@ -97,23 +97,21 @@ const FinalSchedulesWithSuspense: React.FC = () => {
 
 export const ScheduleFinalPage: React.FC = () => {
   return (
-    <div style={{ height: '100%' }}>
-      <div style={{ padding: '2.4rem 0' }}>
-        <div style={{ marginBottom: '1.6rem' }}>
-          <Typo.H1>2023 스포츠한마당 결승 일정</Typo.H1>
-          <Typo.Small>※ 경기 일정은 추후 변경될 수 있어요</Typo.Small>
-        </div>
-
-        <Suspense
-          fallback={
-            <SuspenseFallback
-              messages={['결승 경기 일정을 불러오고 있어요', '잠시만 기다려주세요']}
-            />
-          }
-        >
-          <FinalSchedulesWithSuspense />
-        </Suspense>
+    <div>
+      <div style={{ marginBottom: '1.6rem' }}>
+        <Typo.H1>2023 스포츠한마당 결승 일정</Typo.H1>
+        <Typo.Small>※ 경기 일정은 추후 변경될 수 있어요</Typo.Small>
       </div>
+
+      <Suspense
+        fallback={
+          <SuspenseFallback
+            messages={['결승 경기 일정을 불러오고 있어요', '잠시만 기다려주세요']}
+          />
+        }
+      >
+        <FinalSchedulesWithSuspense />
+      </Suspense>
     </div>
   );
 };
