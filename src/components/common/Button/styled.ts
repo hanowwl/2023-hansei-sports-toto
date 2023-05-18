@@ -4,6 +4,9 @@ import styled from '@emotion/styled';
 export const ButtonElement = styled.button<{ loading?: boolean; fillWidth?: boolean }>`
   outline: none;
   border: none;
+  width: min-content;
+  min-width: 7.2rem;
+  height: min-content;
   display: flex;
   align-items: center;
   justify-content: center;
