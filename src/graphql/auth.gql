@@ -1,0 +1,21 @@
+query getProfile($id: UUID!) {
+  userCollection(filter: { id: { eq: $id } }) {
+    edges {
+      node {
+        id
+        name
+        student_no
+      }
+    }
+  }
+}
+
+mutation registerProfile($id: UUID!, $name: String!, $studentNo: String!) {
+  insertIntouserCollection(objects: { id: $id, name: $name, student_no: $studentNo }) {
+    records {
+      id
+      name
+      student_no
+    }
+  }
+}

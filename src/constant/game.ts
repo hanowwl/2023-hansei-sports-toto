@@ -508,3 +508,9 @@ export const GAME_SCHEDULE_DATES = [
   const displayDay = ['일', '월', '화', '수', '목', '금', '토'];
   return { id: date, label: `${date} (${displayDay[day]})` };
 });
+
+export const GAME_TYPE_TO_DISPLAY = {
+  basketball: '농구',
+  'foot-volleyball': '족구',
+  'dodge-ball': '피구',
+};
