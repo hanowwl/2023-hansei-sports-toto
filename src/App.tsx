@@ -5,6 +5,8 @@ import { DefaultLayout } from './components/layouts';
 import { NAVBAR_MENU } from './constant/navbar';
 import { SchedulePage } from './pages/schedule/main';
 import { ScheduleFinalPage } from './pages/schedule/final';
+import { MainPage } from './pages/main';
+import { AuthLoginPage } from './pages/auth/login';
 
 export const App: React.FC = () => {
   return (
@@ -16,7 +18,12 @@ export const App: React.FC = () => {
           </DefaultLayout>
         }
       >
-        <Route index element={<SchedulePage />} />
+        <Route index element={<MainPage />} />
+
+        <Route path="auth">
+          <Route path="login" element={<AuthLoginPage />} />
+        </Route>
+
         <Route path="schedule">
           <Route index element={<SchedulePage />} />
           <Route path="final" element={<ScheduleFinalPage />} />
