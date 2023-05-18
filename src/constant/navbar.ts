@@ -9,7 +9,7 @@ export const NAVBAR_MENU: NavbarMenu[] = [
   //   text: '예측',
   // },
   {
-    to: '/',
+    to: '/home',
     icon: faHouse,
     text: '홈',
   },
