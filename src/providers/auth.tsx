@@ -54,7 +54,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
       onSuccess: ({ userCollection }) => {
         const userProfile = userCollection?.edges[0];
         if (!userProfile) return;
-        setInit(true);
+
         setProfile((prev) => {
           if (prev === null) navigate('/prediction');
 
@@ -64,6 +64,8 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
             studentNo: userProfile.node.student_no,
           };
         });
+
+        setInit(true);
       },
     }
   );
@@ -73,8 +75,6 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     const initialize = async () => {
       const { data } = await supabase.auth.getSession();
       if (data) setSession(data.session);
-
-      setInit(true);
     };
 
     initialize();
