@@ -16,7 +16,7 @@ export const ProtectedRoute: React.FC<ProtectedRouteProps> = ({
   isPublic = false,
   needAuth = false,
   needSession = false,
-  redirectTo = isPublic ? '/home' : '/auth/login',
+  redirectTo = isPublic ? '/prediction' : '/auth/login',
   children,
 }) => {
   const { profile, session } = useAuth();

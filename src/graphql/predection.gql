@@ -1,0 +1,47 @@
+query getPredictions {
+  predictionCollection {
+    edges {
+      node {
+        id
+        result
+        choices
+        schedule {
+          start_time
+          start_date
+          status
+          id
+
+          team_scheduleCollection(first: 1) {
+            edges {
+              node {
+                type
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+query getMyPredictions($userId: UUID!) {
+  user_predictionCollection(filter: { user_id: { eq: $userId } }) {
+    edges {
+      node {
+        id
+        choice
+        prediction_id
+      }
+    }
+  }
+}
+
+mutation submitPrediction($objects: [user_predictionInsertInput!]!) {
+  insertIntouser_predictionCollection(objects: $objects) {
+    records {
+      prediction_id
+      user_id
+      choice
+    }
+  }
+}

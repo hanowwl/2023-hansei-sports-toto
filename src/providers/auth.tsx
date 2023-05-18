@@ -56,7 +56,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
         if (!userProfile) return;
         setInit(true);
         setProfile((prev) => {
-          if (prev === null) navigate('/home');
+          if (prev === null) navigate('/prediction');
 
           return {
             id: userProfile.node.id,
