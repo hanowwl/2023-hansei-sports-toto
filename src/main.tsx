@@ -10,6 +10,7 @@ import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import { App } from './App.tsx';
 import { globalStyle } from './styles';
 import { ENV } from './constant/env.ts';
+import { AuthProvider } from './providers/auth.tsx';
 
 const queryClient = new QueryClient();
 
@@ -31,7 +32,10 @@ ReactDOM.createRoot(document.getElementById('app') as HTMLElement).render(
     <QueryClientProvider client={queryClient}>
       <BrowserRouter>
         <Global styles={[globalStyle]} />
-        <App />
+
+        <AuthProvider>
+          <App />
+        </AuthProvider>
       </BrowserRouter>
 
       {ENV.MODE === 'development' && <ReactQueryDevtools initialIsOpen={false} />}
