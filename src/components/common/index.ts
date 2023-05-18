@@ -1,3 +1,4 @@
+export * from './Button';
 export * from './GameSchedule';
 export * from './Navbar';
 export * from './Spinner';
