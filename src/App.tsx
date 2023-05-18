@@ -7,6 +7,7 @@ import { SchedulePage } from './pages/schedule/main';
 import { ScheduleFinalPage } from './pages/schedule/final';
 import { MainPage } from './pages/main';
 import { AuthLoginPage } from './pages/auth/login';
+import { AuthProfile } from './pages/auth/profile';
 
 export const App: React.FC = () => {
   return (
@@ -22,6 +23,7 @@ export const App: React.FC = () => {
 
         <Route path="auth">
           <Route path="login" element={<AuthLoginPage />} />
+          <Route path="profile" element={<AuthProfile />} />
         </Route>
 
         <Route path="schedule">

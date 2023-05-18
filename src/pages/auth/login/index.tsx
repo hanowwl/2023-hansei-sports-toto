@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 import { useMutation } from '@tanstack/react-query';
 
@@ -11,6 +12,7 @@ import * as S from './styled';
 
 export const AuthLoginPage: React.FC = () => {
   const auth = useAuth();
+  const navigate = useNavigate();
   const [phone, handleOnChangePhone, validatePhone] = usePhoneInput();
   const [token, setToken] = useState<string>('');
 
@@ -78,7 +80,12 @@ export const AuthLoginPage: React.FC = () => {
               style={{ marginTop: 'auto' }}
               fillWidth
               disabled={!token || token.length < 6 || OTPLoading}
-              onClick={() => verifyOTP({ phone: `+82${phone.slice(1).replace(/-/g, '')}`, token })}
+              onClick={() =>
+                verifyOTP(
+                  { phone: `+82${phone.slice(1).replace(/-/g, '')}`, token },
+                  { onSuccess: () => navigate('/auth/profile') }
+                )
+              }
               loading={OTPLoading}
             >
               {OTPLoading ? '인증 처리 중이에요' : '다음'}
