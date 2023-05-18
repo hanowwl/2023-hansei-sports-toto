@@ -9,6 +9,7 @@ import { MainPage } from './pages/main';
 import { AuthLoginPage } from './pages/auth/login';
 import { AuthProfile } from './pages/auth/profile';
 import { ProtectedRoute } from './components/common';
+import { PredictionPage } from './pages/prediction';
 
 export const App: React.FC = () => {
   return (
@@ -23,7 +24,7 @@ export const App: React.FC = () => {
         <Route
           index
           element={
-            <ProtectedRoute isPublic redirectTo="/home">
+            <ProtectedRoute isPublic redirectTo="/prediction">
               <MainPage />
             </ProtectedRoute>
           }
@@ -61,6 +62,7 @@ export const App: React.FC = () => {
           }
         >
           <Route path="home" element={<div>Home</div>} />
+          <Route path="prediction" element={<PredictionPage />} />
         </Route>
 
         {/* <Route path="prediction" element={<>승부예측</>} />

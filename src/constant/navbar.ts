@@ -1,17 +1,12 @@
-import { faCalendar, faHouse, faTrophy } from '@fortawesome/free-solid-svg-icons';
+import { faCalendar, faCheckToSlot, faTrophy } from '@fortawesome/free-solid-svg-icons';
 
 import { NavbarMenu } from 'src/components/common';
 
 export const NAVBAR_MENU: NavbarMenu[] = [
-  // {
-  //   to: '/prediction',
-  //   icon: faCheckToSlot,
-  //   text: '예측',
-  // },
   {
-    to: '/home',
-    icon: faHouse,
-    text: '홈',
+    to: '/prediction',
+    icon: faCheckToSlot,
+    text: '승부예측',
   },
   {
     to: '/schedule',
