@@ -42,7 +42,7 @@ export interface AuthProviderContext {
 export const AuthContext = React.createContext<AuthProviderContext | null>(null);
 
 export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
-  const [init, setInit] = useState<boolean>(false);
+  const [init, setInit] = useState<boolean>(true);
   const [session, setSession] = useState<Session | null>(null);
   const [profile, setProfile] = useState<UserProfile | null>(null);
   const navigate = useNavigate();
