@@ -74,7 +74,9 @@ export const PredictionPage: React.FC = () => {
                 setUserPredictions((prev) => ({ ...prev, [props.id]: value }));
               }}
               result={predictions.find((v) => v.id === props.id)?.result}
-              disabled={hasPredictions}
+              disabled={
+                hasPredictions && (myPredictions.user_predictionCollection?.edges.length || 0) > 0
+              }
               {...props}
             />
           );
@@ -84,10 +86,13 @@ export const PredictionPage: React.FC = () => {
       <Button
         style={{ position: 'sticky', bottom: '0', boxShadow: '0 3px 10px rgba(0,0,0,0.3)' }}
         fillWidth
-        disabled={!selectAllPredictions || hasPredictions}
+        disabled={
+          !selectAllPredictions ||
+          (hasPredictions && (myPredictions.user_predictionCollection?.edges.length || 0) > 0)
+        }
         onClick={handleOnSubmitPredictions}
       >
-        {hasPredictions
+        {hasPredictions && (myPredictions.user_predictionCollection?.edges.length || 0) > 0
           ? '결승 승부예측을 이미 마감하셨어요'
           : !selectAllPredictions
           ? '모든 경기에 대해 승부예측을 진행해주세요'
