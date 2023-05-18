@@ -5,6 +5,7 @@ import { Session } from '@supabase/supabase-js';
 
 import { supabase } from 'src/supabase';
 import { useGetProfileQuery, useRegisterProfileMutation } from 'src/graphql/generated/hooks';
+import { SuspenseFallback } from 'src/components/common';
 
 export interface UserProfile {
   id: string;
@@ -41,6 +42,7 @@ export interface AuthProviderContext {
 export const AuthContext = React.createContext<AuthProviderContext | null>(null);
 
 export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
+  const [init, setInit] = useState<boolean>(false);
   const [session, setSession] = useState<Session | null>(null);
   const [profile, setProfile] = useState<UserProfile | null>(null);
   const navigate = useNavigate();
@@ -52,7 +54,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
       onSuccess: ({ userCollection }) => {
         const userProfile = userCollection?.edges[0];
         if (!userProfile) return;
-
+        setInit(true);
         setProfile((prev) => {
           if (prev === null) navigate('/home');
 
@@ -71,6 +73,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     const initialize = async () => {
       const { data } = await supabase.auth.getSession();
       if (data) setSession(data.session);
+      else setInit(true);
     };
 
     initialize();
@@ -135,7 +138,11 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
           }),
       }}
     >
-      {children}
+      {init ? (
+        children
+      ) : (
+        <SuspenseFallback messages={['사용자 정보를 불러오고 있어요', '잠시간 기다려주세요']} />
+      )}
     </AuthContext.Provider>
   );
 };
