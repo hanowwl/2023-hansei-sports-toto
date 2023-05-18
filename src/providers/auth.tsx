@@ -1,14 +1,15 @@
 import React, { useContext, useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 import { Session } from '@supabase/supabase-js';
 
 import { supabase } from 'src/supabase';
+import { useGetProfileQuery, useRegisterProfileMutation } from 'src/graphql/generated/hooks';
 
 export interface UserProfile {
   id: string;
   name: string;
   studentNo: string;
-  phone: string;
 }
 
 export interface AuthProviderProps {
@@ -24,9 +25,15 @@ export interface UserVerifyOTPValues {
   token: string;
 }
 
+export interface UserRegisterProfileValues {
+  studentNo: string;
+  name: string;
+}
+
 export interface AuthProviderContext {
   requestSMS: (values: UserRequestSMSValues) => Promise<void>;
   verifyOTP: (values: UserVerifyOTPValues) => Promise<void>;
+  registerProfile: (values: UserRegisterProfileValues) => Promise<void>;
   session: Session | null;
   profile: UserProfile | null;
 }
@@ -35,7 +42,30 @@ export const AuthContext = React.createContext<AuthProviderContext | null>(null)
 
 export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   const [session, setSession] = useState<Session | null>(null);
-  const [profile] = useState<UserProfile | null>(null);
+  const [profile, setProfile] = useState<UserProfile | null>(null);
+  const navigate = useNavigate();
+
+  const { refetch: getProfile } = useGetProfileQuery(
+    { id: session?.user.id },
+    {
+      enabled: false,
+      onSuccess: ({ userCollection }) => {
+        const userProfile = userCollection?.edges[0];
+        if (!userProfile) return;
+
+        setProfile((prev) => {
+          if (prev === null) navigate('/home');
+
+          return {
+            id: userProfile.node.id,
+            name: userProfile.node.name,
+            studentNo: userProfile.node.student_no,
+          };
+        });
+      },
+    }
+  );
+  const { mutateAsync: registerProfile } = useRegisterProfileMutation();
 
   useEffect(() => {
     const initialize = async () => {
@@ -54,6 +84,12 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     };
   }, []);
 
+  useEffect(() => {
+    if (!session) return;
+    getProfile();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [session]);
+
   return (
     <AuthContext.Provider
       value={{
@@ -67,16 +103,36 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
           }
         },
         verifyOTP: async ({ phone, token }) => {
-          const { data, error } = await supabase.auth.verifyOtp({ phone, token, type: 'sms' });
+          const { error } = await supabase.auth.verifyOtp({ phone, token, type: 'sms' });
           if (error) {
             if (error.message.includes('Token has expired or is invalid'))
               throw new Error('만료된 인증번호이거나 잘못된 인증번호에요');
 
             throw new Error('인증 처리 중 오류가 발생했어요');
           }
-
-          console.log(data);
         },
+        registerProfile: ({ name, studentNo }) =>
+          new Promise(async (resolve, reject) => {
+            if (!session?.user) reject(new Error('문자 인증 후 다시 시도해주세요'));
+
+            await registerProfile(
+              { id: session?.user.id, name, studentNo },
+              {
+                onSuccess: ({ insertIntouserCollection }) => {
+                  const userProfile = insertIntouserCollection?.records[0];
+                  if (userProfile) {
+                    setProfile({
+                      id: userProfile.id,
+                      name: userProfile.name,
+                      studentNo: userProfile.student_no,
+                    });
+                    resolve();
+                  }
+                },
+                onError: () => reject(new Error('프로필 생성 중 오류가 발생했어요')),
+              }
+            );
+          }),
       }}
     >
       {children}
