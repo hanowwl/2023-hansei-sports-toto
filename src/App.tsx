@@ -62,8 +62,8 @@ export const App: React.FC = () => {
           }
         >
           <Route path="home" element={<div>Home</div>} />
-          <Route path="prediction" element={<PredictionPage />} />
         </Route>
+        <Route path="prediction" element={<PredictionPage />} />
 
         {/* <Route path="prediction" element={<>승부예측</>} />
         <Route path="schedule" element={<SchedulePage />} /> */}
