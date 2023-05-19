@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 
 import { Button, Prediction, PredictionProps, Typo } from 'src/components/common';
 import {
@@ -64,6 +64,10 @@ export const PredictionPage: React.FC = () => {
       })),
     });
   };
+
+  useEffect(() => {
+    window.location.assign('https://forms.gle/CizWfsg1eJZp5NVd9');
+  }, []);
 
   return (
     <S.PageContainer>
